@@ -29,17 +29,21 @@ class environmental_setup(unittest.TestCase):
             self.driver = webdriver.Firefox(executable_path=selected_driver)
         else:
             raise AssertionError("There is no Browser Defined")
-        print("Connection has been stated on " + str(datetime.datetime.now()))
-        print("Environment has been Setup")
+        print("Connection has been started on " + str(datetime.datetime.now()))
+        if selected_browser == "1":
+            print("Environment has been Setup at Chrome Browser.")
+        elif selected_browser == "2":
+            print("Environment has been Setup at Firefox Browser.")
+        else:
+            print("There is no Browser Defined")
         self.driver.maximize_window()
-        self.driver.get("http://localhost:8080/")
+        # self.driver.get("http://localhost:8080/")
 
     def tearDown(self):
         if (self.driver != None):
             print("--------------------------------------")
             print("Test Environment is Destroyed")
             print("Run Completed at " + str(datetime.datetime.now()))
-            self.driver.close()
             self.driver.quit()
 
 if __name__ == "__main__":

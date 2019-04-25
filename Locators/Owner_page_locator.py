@@ -1,0 +1,5 @@
+search_owner_button_xpath = '//*[@id="search-owner-form"]/div[2]/div/button'
+new_owner_button_xpath = '//div/a'
+last_name_field_xpath = 'lastName'
+find_owner_header_xpath = '//div/h2'
+last_name_text_xpath = '//*[@id="lastNameGroup"]/label'
