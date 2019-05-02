@@ -23,6 +23,7 @@ owner_city_field_id = 'city'
 owner_telephone_field_id = 'telephone'
 
 add_newowner_button_xpath = '//*[@id="add-owner-form"]/div[2]/div/button'
+all_text_fields_class_xpath = '//*[@class="form-control"]'
 
 
 
