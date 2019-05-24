@@ -3,8 +3,18 @@ import time
 from environmental_setup import environmental_setup
 from Locators.Owner_page_locator import *
 import unittest
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 
 class Owner_Page_Methods(environmental_setup):
+    first_name = 'Taimoor'
+    last_name = 'Pasha'
+    city_name = 'London'
+    address = '401 Gable Roads'
+    telephone = '+8190289765'
+
     def test_1_lastname_field_presence(self):
         driver = self.driver
         driver.get("http://localhost:8080/owners/find")
@@ -72,11 +82,11 @@ class Owner_Page_Methods(environmental_setup):
         city_field = driver.find_element_by_id(owner_city_field_id)
         address_field = driver.find_element_by_id(owner_address_field_id)
         telephone_field = driver.find_element_by_id(owner_telephone_field_id)
-        first_name_field.send_keys('Taimoor')
-        last_name_field.send_keys('Pasha')
-        city_field.send_keys('London')
-        address_field.send_keys('401 Gable Roads')
-        telephone_field.send_keys('+8190289765')
+        first_name_field.send_keys(self.first_name)
+        last_name_field.send_keys(self.last_name)
+        city_field.send_keys(self.city_name)
+        address_field.send_keys(self.address)
+        telephone_field.send_keys(self.telephone)
         all_fields = driver.find_elements_by_xpath(all_text_fields_class_xpath)
         data_entered = []
         for i in all_fields:
@@ -85,12 +95,47 @@ class Owner_Page_Methods(environmental_setup):
         for i in all_fields:
             fields_names.append(i.get_attribute('name'))
         data_dict = dict(zip(fields_names,data_entered))
-        try:
-            for name, age in data_dict.items():
-                if age == '':
-                    print("Data has not been Entered at "+name+" field.")
-        except:
-            print("Data has been entered on All Fields")
+        for name, age in data_dict.items():
+            if age == '':
+                print("Data has not been Entered at "+name+" field.")
+        if '' not in data_entered:
+            print("Data has been Entered on all Fields")
+        else:
+            raise AssertionError("Data has not been entered on all fields")
+        return data_dict
+
+    def test_7_create_new_owner(self):
+        adding_values = self.test_6_enter_values_text_fields()
+        driver = self.driver
+        add_new_owner_button = driver.find_element_by_xpath(add_newowner_button_xpath)
+        add_new_owner_button.click()
+        WebDriverWait(driver, wait_time).until(EC.presence_of_element_located((By.XPATH, Owner_Information_header_xpath)))
+        owner_name_text = driver.find_element_by_xpath(owners_name_xpath).text
+        owner_address_text = driver.find_element_by_xpath(owners_address_xpath).text
+        owner_city_text = driver.find_element_by_xpath(owners_city_xpath).text
+        owner_telephone_text = driver.find_element_by_xpath(owners_telephone_xpath).text
+        if owner_name_text == (self.first_name+" "+self.last_name):
+            print('Name is correct')
+        else:
+            ValueError ('Name is not Correct')
+
+        if owner_address_text == self.address:
+            print('Address is Correct')
+        else:
+            ValueError ("Address is not Corrct")
+
+        if owner_city_text == self.city_name:
+            print('City is correct')
+        else:
+            ValueError('City is not correct')
+
+        if owner_telephone_text == self.telephone:
+            print('Telephone is correct')
+        else:
+            ValueError('Telephone is not correct')
+
+
+
 
 
 
