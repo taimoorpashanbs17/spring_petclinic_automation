@@ -15,7 +15,7 @@ class Owner_Page_Methods(environmental_setup):
     address = '401 Gable Roads'
     telephone = '+8190289765'
 
-    def test_1_lastname_field_presence(self):
+    def lastname_field_presence(self):
         driver = self.driver
         driver.get("http://localhost:8080/owners/find")
         try:
@@ -25,7 +25,7 @@ class Owner_Page_Methods(environmental_setup):
         except:
             raise AssertionError("Last Name Field is not Displaying")
 
-    def test_2_submit_button_presence(self):
+    def submit_button_presence(self):
         driver = self.driver
         driver.get("http://localhost:8080/owners/find")
         search_owner_button = driver.find_element_by_xpath(search_owner_button_xpath)
@@ -36,7 +36,7 @@ class Owner_Page_Methods(environmental_setup):
             raise AssertionError("Serach Owner Button is not Displaying.")
 
 
-    def test_3_add_owner_button(self):
+    def add_owner_button(self):
         driver = self.driver
         driver.get("http://localhost:8080/owners/find")
         try:
@@ -46,7 +46,7 @@ class Owner_Page_Methods(environmental_setup):
         except:
             raise AssertionError("Add New Owner Button is not Displaying.")
 
-    def test_4_verify_all_texts_displaying(self):
+    def verify_all_texts_displaying(self):
         driver = self.driver
         driver.get("http://localhost:8080/owners/new")
         owners_page_texts_list = [owner_first_name_text_xpath, owner_last_name_text_xpath,
@@ -60,7 +60,7 @@ class Owner_Page_Methods(environmental_setup):
         except:
             raise AssertionError(str(owners_page_texts_elements[i].get_attribute('value'))+" Text is not displaying")
 
-    def test_5_verify_all_fields_displaying(self):
+    def verify_all_fields_displaying(self):
         driver = self.driver
         driver.get("http://localhost:8080/owners/new")
         owners_page_fields_list = [owner_first_name_field_id, owner_last_name_field_id,
@@ -74,7 +74,7 @@ class Owner_Page_Methods(environmental_setup):
         except:
             raise AssertionError(str(owners_page_fields_elements[i].get_attribute('name')) + " is not displaying")
 
-    def test_6_enter_values_text_fields(self):
+    def enter_values_text_fields(self):
         driver = self.driver
         driver.get("http://localhost:8080/owners/new")
         first_name_field = driver.find_element_by_id(owner_first_name_field_id)
@@ -104,8 +104,8 @@ class Owner_Page_Methods(environmental_setup):
             raise AssertionError("Data has not been entered on all fields")
         return data_dict
 
-    def test_7_create_new_owner(self):
-        adding_values = self.test_6_enter_values_text_fields()
+    def create_new_owner(self):
+        adding_values = self.enter_values_text_fields()
         driver = self.driver
         add_new_owner_button = driver.find_element_by_xpath(add_newowner_button_xpath)
         add_new_owner_button.click()
@@ -133,11 +133,3 @@ class Owner_Page_Methods(environmental_setup):
             print('Telephone is correct')
         else:
             ValueError('Telephone is not correct')
-
-
-
-
-
-
-if __name__ == "__main__":
-    unittest.main()
