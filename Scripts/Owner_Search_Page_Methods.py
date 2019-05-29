@@ -7,17 +7,17 @@ from Scripts.Owner_Page_Methods import Owner_Page_Methods as owner_page
 import time
 
 class Owner_Search__Page_Methods(environmental_setup):
-    def test_1_search_owners(self):
+    def test_1_search_owners(self, lastname):
         driver = self.driver
         driver.get("http://localhost:8080/owners/find")
         last_name_field = driver.find_element_by_id(last_name_field_id)
-        last_name_field.send_keys(owner_page.last_name)
+        last_name_field.send_keys(lastname)
         search_owner_button = driver.find_element_by_xpath(search_owner_button_xpath)
         search_owner_button.click()
         try:
             alert_message = driver.find_element_by_xpath(search_notfound_alert_xpath)
             if alert_message.is_displayed():
-                print(owner_page.last_name + " " + alert_message.text)
+                print(lastname + " " + alert_message.text)
         except:
             WebDriverWait(driver, wait_time).until(
                 EC.presence_of_element_located((By.XPATH, Owner_Information_header_xpath)))
@@ -45,7 +45,7 @@ class Owner_Search__Page_Methods(environmental_setup):
             else:
                 ValueError('Telephone is not correct')
 
-    def test_2_edit_search_owner(self):
+    def test_2_verify_data_edit(self):
         driver = self.driver
         driver.get("http://localhost:8080/owners/find")
         last_name_field = driver.find_element_by_id(last_name_field_id)
@@ -56,9 +56,46 @@ class Owner_Search__Page_Methods(environmental_setup):
             EC.presence_of_element_located((By.XPATH, Owner_Information_header_xpath)))
         edit_button = driver.find_element_by_xpath(edit_owner_xpath)
         edit_button.click()
-        time.sleep(2)
         first_name_field = driver.find_element_by_id(owner_first_name_field_id)
         last_name_field = driver.find_element_by_id(owner_last_name_field_id)
         city_field = driver.find_element_by_id(owner_city_field_id)
         address_field = driver.find_element_by_id(owner_address_field_id)
         telephone_field = driver.find_element_by_id(owner_telephone_field_id)
+        if first_name_field.get_attribute('value') == owner_page.first_name:
+            print("First Name is Same")
+        else:
+            raise ValueError("First name is not Same")
+        if last_name_field.get_attribute('value') == owner_page.last_name:
+            print("Last Name is Same")
+        else:
+            raise ValueError("Last name is not Same")
+        if city_field.get_attribute('value') == owner_page.city_name:
+            print("City is Same")
+        else:
+            raise ValueError("City name is not Same")
+        if address_field.get_attribute('value') == owner_page.address:
+            print("Address is Same")
+        else:
+            raise ValueError("Address name is not Same")
+        if telephone_field.get_attribute('value') == owner_page.telephone:
+            print("Telephone is Same")
+        else:
+            raise ValueError("Telephone is not Same")
+
+    def test_3_update_data_fields(self):
+        driver = self.driver
+        driver.get("http://localhost:8080/owners/find")
+        last_name_field = driver.find_element_by_id(last_name_field_id)
+        last_name_field.send_keys(owner_page.last_name)
+        search_owner_button = driver.find_element_by_xpath(search_owner_button_xpath)
+        search_owner_button.click()
+        WebDriverWait(driver, wait_time).until(
+            EC.presence_of_element_located((By.XPATH, Owner_Information_header_xpath)))
+        edit_button = driver.find_element_by_xpath(edit_owner_xpath)
+        edit_button.click()
+        first_name_field = driver.find_element_by_id(owner_first_name_field_id)
+        last_name_field = driver.find_element_by_id(owner_last_name_field_id)
+        city_field = driver.find_element_by_id(owner_city_field_id)
+        address_field = driver.find_element_by_id(owner_address_field_id)
+        telephone_field = driver.find_element_by_id(owner_telephone_field_id)
+        first_name_field.clear()

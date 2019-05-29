@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 
 
 class Owner_Page_Methods(environmental_setup):
-    first_name = 'Taimoor'
+    first_name = 'Taim'
     last_name = 'Pasha'
     city_name = 'London'
     address = '401 Gable Roads'
