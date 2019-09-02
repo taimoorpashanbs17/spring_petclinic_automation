@@ -17,6 +17,10 @@ elif (os_name == 'Linux') and (selected_browser == "1"):
     selected_driver = os.path.abspath(parent_directory + "/Drivers/Chromedriver/chromedriver_linux")
 elif (os_name == 'Linux') and (selected_browser == "2"):
     selected_driver = os.path.abspath(parent_directory + "/Drivers/geckdriver/geckodriver_linux")
+elif (os_name == 'Windows') and (selected_browser == "1"):
+    selected_driver = os.path.abspath(parent_directory + "\Drivers\Chromedriver\chromedriver_windows.exe")
+elif (os_name == 'Windows') and (selected_browser == "2"):
+    selected_driver = os.path.abspath(parent_directory + "\Drivers\Chromedriver\geckodriver_windows.exe")
 else:
     raise AssertionError("No Driver is there")
 
